@@ -1,0 +1,158 @@
+command 1
+
+The neural network below is a simple one-layer model using the sigmoid activation function. This model is designed to classify images of handwritten digits (0-9), typically from the MNIST dataset. Each input image is 28x28 pixels, resulting in a 784-length input vector (28 * 28 = 784).
+
+The output layer has 10 neurons, one for each digit from 0 to 9. The activation function used here is 'sigmoid', which indeed predicts values between 0 and 1. However, it's important to note that the sigmoid function is applied independently to each of the 10 output neurons. This means that each neuron will produce a probability-like value, representing the confidence that the input corresponds to that particular digit.
+
+To determine the predicted digit, you would generally choose the neuron with the highest output value, which corresponds to the highest confidence.
+
+The order of the neurons and their association with the digits is determined by the one-hot encoded labels used during the training process. As long as the labels are consistent, the model will learn to predict digits correctly:
+
+- 0 -> [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+- 1 -> [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+- 2 -> [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+- ...
+- 9 -> [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+
+The model will learn to associate the first neuron with the digit 0, the second neuron with the digit 1, and so on. The training process, which involves adjusting the weights and biases of the network, ensures that the model can map the input images to the corresponding one-hot encoded labels.
+
+To be more specific, during the training process, the model will try to minimize the difference between its predictions and the one-hot encoded ground truth labels. So, if the first output neuron is not predicting 0 when it should, the loss function will indicate that the prediction is incorrect, and the training algorithm will update the model's weights and biases accordingly. Over many iterations, the model will learn to predict the correct digit for each input image.
+
+command 2
+
+- The neural network is a simple one-layer model using the sigmoid activation function. 
+- This model is designed to classify images of handwritten digits (0-9), typically from the MNIST dataset. 
+- Each input image is 28x28 pixels, resulting in a 784-length input vector (28 * 28 = 784).
+- The output layer has 10 neurons, one for each digit from 0 to 9. 
+- The activation function used here is 'sigmoid', which indeed predicts values between 0 and 1. 
+  - However, it's important to note that the sigmoid function is applied independently to each of the 10 output neurons. 
+  - This means that each neuron will produce a probability-like value, representing the confidence that the input corresponds to that particular digit.
+
+- To determine the predicted digit, you would generally choose the neuron with the highest output value, which corresponds to the highest confidence.
+  - This model is not ideal for multi-class classification. 
+  - For such tasks, it is more common to use the softmax activation function in the output layer, which normalizes the outputs to sum up to 1, making them interpretable as probabilities. 
+  - To use softmax in the Keras model, simply replace 'sigmoid' with 'softmax
+
+command 3
+
+Principle Component Analysis
+
+$\mathbf{X} = 
+\begin{bmatrix}
+ Cov(x_1 x_1) & Cov(x_1 x_2) \\ 
+ Cov(x_2 x_1) & Cov(x_2 x_2) \\ 
+\end{bmatrix}
+$
+
+$Cov(\mathbf{x_1,x_1}) = \frac{1}{m-1} \sum\limits_{k = 1}^{m} (x_1k-x_1\mu)(x_1k-x_1\mu)$ \
+$Cov(\mathbf{x_1,x_2}) = \frac{1}{m-1} \sum\limits_{k = 1}^{m} (x_1k-x_1\mu)(x_2k-x_2\mu)$ \
+$Cov(\mathbf{x_2,x_1}) = \frac{1}{m-1} \sum\limits_{k = 1}^{m} (x_2k-x_2\mu)(x_1k-x_1\mu)$ \
+$Cov(\mathbf{x_2,x_2}) = \frac{1}{m-1} \sum\limits_{k = 1}^{m} (x_2k-x_2\mu)(x_2k-x_2\mu)$ 
+
+command 4
+
+$I = \begin{vmatrix} {1} & {0} \\ {0} & {1} \end{vmatrix}$  
+
+$\lambda I = \begin{vmatrix} {\lambda} & {0} \\ {0} & {\lambda} \end{vmatrix}$  
+
+$det(\mathbf{S - \lambda I}) = 0$  
+
+$\begin{vmatrix} {14-\lambda} & {-11} \\ {-11} & {23-\lambda} \end{vmatrix} = 0$  
+
+$\mathbf{(14 - \lambda)(23-\lambda) - (-11)(-11)} = 0$  
+
+$\lambda^{2} - 37 \lambda + 201 = 0$  
+
+$\lambda = (30.3849, 6.151)$ 
+
+command 5
+
+$\mathbf{U} =  \begin{bmatrix} u_{1} \\  u_{2} \\ \end{bmatrix}$
+
+$\mathbf({S - \lambda I}U) = \begin{bmatrix} {0} \\  {0} \\ \end{bmatrix}$  
+
+$\begin{bmatrix} {14-\lambda} & {-11} \\ {-11} & {23-\lambda} \end{bmatrix} \begin{bmatrix} u_{1} \\  u_{2} \\ \end{bmatrix} = \begin{bmatrix} {0} \\  {0} \\ \end{bmatrix}$  
+
+$\begin{bmatrix} {(14-\lambda)u_{1}} & {-11}u_{2} \\ {-11}u_{1} & {(23-\lambda)u_{2}} \end{bmatrix}  = \begin{bmatrix} {0} \\  {0} \\ \end{bmatrix}$  
+
+$\mathbf(14-\lambda) u_{1} - 11 u_{2} = 0$  
+
+$\frac {u{1}}{11} = \frac {u{2}}{14-\lambda} = t$  
+
+$u_{1} = 11t, \ u_{2} = (14-\lambda) t$  
+
+$\mathbf{U_{1}} =  \begin{bmatrix} {11} \\  {14 - \lambda _{1}} \\ \end{bmatrix}$
+
+$\mathbf- 11 u_{1} + {(23-\lambda) u_{2}}  = 0$  
+
+$\frac {u{1}}{23-\lambda} = \frac {u{2}}{11} = t$ 
+
+$u_{1} = (23 - \lambda)t, \ u_{2} = 11 t$  
+
+$\mathbf{U_{2}} =  \begin{bmatrix} {23 - \lambda _{2}} \\  {11} \\ \end{bmatrix}$
+
+$\lambda = (30.3849, 6.151) \ for \ PC \ consider \ largest \ eigenvalue \ and \ for \ second \ PC \ use \ the \ next \ one$ 
+
+command 6
+
+$length \ of \ U1 = \mathbf{|| U_{1} ||} =  \sqrt{(11^{2} + (14-\lambda _{1} ^{2})} \ = 19.7348$  
+
+$\mathbf{e_{1}} =  \begin{bmatrix} \frac {{11}}{|| U_{1} ||} \\  \frac {{(14 - \lambda)}}{|| U_{1} ||} \end{bmatrix}$  
+
+$\mathbf{e_{1}} =  \begin{bmatrix} \frac {{11}}{19.7348} \\  \frac {{(14 - 30.3849)}}{19.7348} \end{bmatrix}$   
+
+$\mathbf{e_{1}} =  \begin{bmatrix} 0.5574 \\  -0.8303 \end{bmatrix}$
+
+$using \ \lambda_{2} = 6.6151 $  
+
+$\mathbf{e_{2}} =  \begin{bmatrix} 0.8303 \\  0.5574 \end{bmatrix}$ 
+
+command 7
+
+$\mathbf{e_{1}^{T}}\begin{bmatrix} (x_1k-x_1\mu)\\  (x_2k-x_2\mu) \end{bmatrix}$  
+
+$=  \begin{bmatrix} (0.5574-0.8303)\end{bmatrix} \begin{bmatrix} (x_{11}-x_1\mu)\\  (x_{21}-x_2\mu) \end{bmatrix}$
+
+
+$=  (0.5574)(x_{11}-x_1\mu) - 0.8303(x_{21}-x_2\mu)$  
+
+$=  (0.5574)(4-8) - 0.8303(1-8.5)$  
+
+$=  -4.30535$
+
+$=  (0.5574)(x_{12}-x_1\mu) - 0.8303(x_{22}-x_2\mu) \ = 3.7361$  
+
+$=  (0.5574)(x_{13}-x_1\mu) - 0.8303(x_{23}-x_2\mu) \ = 5.6928$  
+
+$=  (0.5574)(x_{14}-x_1\mu) - 0.8303(x_{24}-x_2\mu) \ = -5.1238$  
+
+command 8
+
+## Data Preprocessing
+
+### Training set: X
+### Preprocessing (feature scaling/mean normalization)
+$$u_{i} = \frac{1}{m} \sum\limits_{i = 1}^{m} (x^{(i)}) $$
+
+### Replace each $$x_{i}$$ with $$x_{i} - u_{i}$$
+
+### If different features on different scales e.g. $$x_{1}= size of house $$ $$x_{2}= number of bedrooms $$
+### then scale features to have comparable range of values
+
+command 9
+
+## Principal Component Analysis (PCA) algorithm
+
+>**Reduce data from n-dimensions to k-dimensions:**  
+**Compute "covariance matrix: "** $\sum = \frac{1}{m} \sum\limits_{i = 1}^{m} (x^{(i)}) (x^{(i)})^{(T)}$  
+**[U, S, V] = svd(Sigma);**
+**Compute "eigenvectors" of matrix:** $\sum$
+
+>**svd = Single Value Decompisition**  
+**Other libararies: eig(Sigma)**  
+**U is nxn matrix**
+
+>**Ureduce = U(:,1:k)**  
+**z = Ureduce** $^{(T)}$ * **X** 
+
+
